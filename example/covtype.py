@@ -75,13 +75,13 @@ from sklearn.svm import LinearSVC
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 
-svc_dmt = SVC(max_iter=1e-6).fit(X_cel_dmt, y_cel_em)
+svc_dmt = SVC(max_iter=1e6).fit(X_cel_dmt, y_cel_em)
 acc_dmt = accuracy_score(y_cel_em, svc_dmt.predict(X_cel_dmt))
 
-svc_umap = SVC(max_iter=1e-6).fit(X_cel_umap, y_cel_em)
+svc_umap = SVC(max_iter=1e6).fit(X_cel_umap, y_cel_em)
 acc_umap = accuracy_score(y_cel_em, svc_umap.predict(X_cel_umap))
 
-svc_tsne = SVC(max_iter=1e-6).fit(X_cel_tsne, y_cel_em)
+svc_tsne = SVC(max_iter=1e6).fit(X_cel_tsne, y_cel_em)
 acc_tsne = accuracy_score(y_cel_em, svc_tsne.predict(X_cel_tsne))
 
 print('acc_dmt', acc_dmt)
