@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from dmt import DMT
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
+import datetime
 
 sns.set_style('dark')
 
@@ -66,7 +67,6 @@ DATA.shape
 
 
 # %%
-import datetime
 
 print(f'start dmt, time: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 dmt = DMT(num_fea_aim=0.99, device_id=0, epochs=600, batch_size=2000, K=5, nu=1e-2)

@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from dmt import DMT
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
+import datetime
 
 sns.set_style('dark')
 
@@ -70,13 +71,14 @@ from sklearn.svm import LinearSVC
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 
-svc_dmt = SVC().fit(X_cel_dmt, y_cel_em)
+print(f'start svc, time: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
+svc_dmt = SVC(max_iter=100000).fit(X_cel_dmt, y_cel_em)
 acc_dmt = accuracy_score(y_cel_em, svc_dmt.predict(X_cel_dmt))
 
-svc_umap = SVC().fit(X_cel_umap, y_cel_em)
+svc_umap = SVC(max_iter=100000).fit(X_cel_umap, y_cel_em)
 acc_umap = accuracy_score(y_cel_em, svc_umap.predict(X_cel_umap))
 
-svc_tsne = SVC().fit(X_cel_tsne, y_cel_em)
+svc_tsne = SVC(max_iter=100000).fit(X_cel_tsne, y_cel_em)
 acc_tsne = accuracy_score(y_cel_em, svc_tsne.predict(X_cel_tsne))
 
 print('acc_dmt', acc_dmt)
