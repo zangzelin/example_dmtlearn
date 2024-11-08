@@ -66,15 +66,20 @@ DATA.shape
 
 
 # %%
+import datetime
+
+print(f'start dmt, time: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 dmt = DMT(num_fea_aim=0.99, device_id=0, epochs=600, batch_size=2000, K=5, nu=1e-2)
 # X_cel_dmt, X_cel_umap, X_cel_tsne, X_cel_pca  = dmt.compare(DATA, plot=None)
 dmt.fit(DATA)
 X_cel_dmt = dmt.transform(DATA)
 
+print(f'start UMAP, time: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 import umap
 reducer = umap.UMAP()
 X_cel_umap = reducer.fit_transform(DATA)
 
+print(f'start TSNE, time: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 from sklearn.manifold import TSNE
 X_cel_tsne = TSNE(n_components=2).fit_transform(DATA)
 
@@ -86,6 +91,7 @@ from sklearn.svm import LinearSVC
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 
+print(f'start svc, time: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 svc_dmt = SVC(max_iter=1e6).fit(X_cel_dmt, y_cel_em)
 acc_dmt = accuracy_score(y_cel_em, svc_dmt.predict(X_cel_dmt))
 
