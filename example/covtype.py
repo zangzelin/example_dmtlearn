@@ -67,7 +67,18 @@ DATA.shape
 
 # %%
 dmt = DMT(num_fea_aim=0.99, device_id=0, epochs=600, batch_size=2000, K=5, nu=1e-2)
-X_cel_dmt, X_cel_umap, X_cel_tsne, X_cel_pca  = dmt.compare(DATA, plot=None)
+# X_cel_dmt, X_cel_umap, X_cel_tsne, X_cel_pca  = dmt.compare(DATA, plot=None)
+dmt.fit(DATA)
+X_cel_dmt = dmt.transform(DATA)
+
+import umap
+reducer = umap.UMAP()
+X_cel_umap = reducer.fit_transform(DATA)
+
+from sklearn.manifold import TSNE
+X_cel_tsne = TSNE(n_components=2).fit_transform(DATA)
+
+
 
 # %%
 import matplotlib.pyplot as plt
