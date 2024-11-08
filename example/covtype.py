@@ -8,6 +8,13 @@ import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
 import datetime
 
+import matplotlib.pyplot as plt
+from sklearn.svm import LinearSVC
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+import umap
+from sklearn.manifold import TSNE
+
 sns.set_style('dark')
 
 # %%
@@ -75,21 +82,16 @@ dmt.fit(DATA)
 X_cel_dmt = dmt.transform(DATA)
 
 print(f'start UMAP, time: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
-import umap
 reducer = umap.UMAP()
 X_cel_umap = reducer.fit_transform(DATA)
 
 print(f'start TSNE, time: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
-from sklearn.manifold import TSNE
 X_cel_tsne = TSNE(n_components=2).fit_transform(DATA)
 
 
 
 # %%
-import matplotlib.pyplot as plt
-from sklearn.svm import LinearSVC
-from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score
+
 
 print(f'start svc, time: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 svc_dmt = SVC(max_iter=100000).fit(X_cel_dmt, y_cel_em)
