@@ -9,6 +9,8 @@ from sklearn.preprocessing import LabelEncoder
 import datetime
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
+import umap
+from sklearn.manifold import TSNE
 
 # Set seaborn style for plots
 sns.set_style('dark')
@@ -50,7 +52,7 @@ def get_data_info(x, y):
     print(f"The unique values in y: {len(np.unique(y))}")
 
 # %% Load dataset based on selected dataset name
-dataname = 'breast_cancer'
+dataname = '20News'
 
 if dataname == 'eminst':
     from torchvision.datasets import EMNIST
@@ -65,17 +67,37 @@ elif dataname == 'breast_cancer':
     data = load_breast_cancer()
     DATA, y_cel_em = np.array(data.data), np.array(data.target)
 
+elif dataname == 'covtype':
+    from sklearn.datasets import fetch_covtype
+    cov_type = fetch_covtype()
+    DATA, y_cel_em = np.array(cov_type.data).astype(np.float32), np.array(cov_type.target)
+
+elif dataname == '20News':
+    DATA = np.load('./../data/20NG.npy')
+    y_cel_em = np.load('./../data/20NG_labels.npy')
+
 # %% Display data shape
 print("Data shape:", DATA.shape)
 
-# %% Dimensionality reduction using DMT and other methods
-dmt = DMT(num_fea_aim=0.99, device_id=0, epochs=600, batch_size=2000, K=5, nu=1e-2)
-X_cel_dmt, X_cel_umap, X_cel_tsne, X_cel_pca = dmt.compare(DATA, plot=None)
+# %% Dimensionality reduction using DMT
+print(f"Starting DMT, time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+dmt = DMT(num_fea_aim=0.99, device_id=0, epochs=600, batch_size=2000, K=5, nu=5e-3)
+dmt.fit(DATA)
+X_cel_dmt = dmt.transform(DATA)
+
+# %% Dimensionality reduction using UMAP and TSNE
+print(f"Starting UMAP, time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+reducer = umap.UMAP()
+X_cel_umap = reducer.fit_transform(DATA)
+
+print(f"Starting TSNE, time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+X_cel_tsne = TSNE(n_components=2).fit_transform(DATA)
 
 # %% SVM classification and accuracy calculation for each embedding method
 print(f"Starting SVC, time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 svc_dmt = SVC(max_iter=100000).fit(X_cel_dmt, y_cel_em)
 acc_dmt = accuracy_score(y_cel_em, svc_dmt.predict(X_cel_dmt))
+print('Accuracy with DMT:', acc_dmt)
 
 svc_umap = SVC(max_iter=100000).fit(X_cel_umap, y_cel_em)
 acc_umap = accuracy_score(y_cel_em, svc_umap.predict(X_cel_umap))
@@ -83,7 +105,6 @@ acc_umap = accuracy_score(y_cel_em, svc_umap.predict(X_cel_umap))
 svc_tsne = SVC(max_iter=100000).fit(X_cel_tsne, y_cel_em)
 acc_tsne = accuracy_score(y_cel_em, svc_tsne.predict(X_cel_tsne))
 
-print('Accuracy with DMT:', acc_dmt)
 print('Accuracy with UMAP:', acc_umap)
 print('Accuracy with TSNE:', acc_tsne)
 
@@ -113,4 +134,4 @@ ax_3.spines[:].set_color('black'); ax_3.spines[:].set_linewidth(1.5)
 
 # Final layout adjustments and save the figure
 plt.tight_layout()
-plt.savefig('breast_cancer.png', dpi=300)
+plt.savefig('covtype.png', dpi=300)
