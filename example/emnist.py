@@ -70,10 +70,10 @@ if dataname == 'eminst':
     DATA = np.stack([train_data[i][0].numpy().squeeze() for i in range(len(train_data))]).reshape((-1, 784))
     y_cel_em = np.array([train_data[i][1] for i in range(len(train_data))])
     
-    if DATA.shape[0] >= 20000:
+    if DATA.shape[0] >= 60000:
         random_seed = 0
         np.random.seed(random_seed)
-        rand_index = np.random.choice(DATA.shape[0], 20000, replace=False)
+        rand_index = np.random.choice(DATA.shape[0], 60000, replace=False)
         DATA = DATA[rand_index]
         y_cel_em = np.array([train_data[i][1] for i in rand_index])
         
