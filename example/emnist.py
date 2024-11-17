@@ -2,6 +2,7 @@
 import pandas as pd
 from scipy.io import mmread
 import numpy as np# Set WandB environment variables
+import os
 os.environ['WANDB_API_KEY'] = 'local-04561b3685afca039aca56f554efe6a008118c01'
 os.environ['WANDB_BASE_URL'] = 'http://www.zangzelin.fun:4080'
 import matplotlib.pyplot as plt
