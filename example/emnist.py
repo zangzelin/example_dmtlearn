@@ -89,31 +89,31 @@ print("Data shape:", DATA.shape)
 
 # %% Dimensionality reduction using DMT, UMAP, and TSNE
 print(f"Starting DMT, time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-dmt = DMT(num_fea_aim=0.99, device_id=0, epochs=400, batch_size=2000, K=5, nu=1e-3)
+dmt = DMT(num_fea_aim=0.99, device_id=0, epochs=400, batch_size=2000, K=3, nu=5e-3)
 dmt.fit(DATA)
 X_cel_dmt = dmt.transform(DATA)
 
-print(f"Starting UMAP, time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-reducer = umap.UMAP()
-X_cel_umap = reducer.fit_transform(DATA)
+# print(f"Starting UMAP, time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+# reducer = umap.UMAP()
+# X_cel_umap = reducer.fit_transform(DATA)
 
-print(f"Starting TSNE, time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-X_cel_tsne = TSNE(n_components=2).fit_transform(DATA)
+# print(f"Starting TSNE, time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+# X_cel_tsne = TSNE(n_components=2).fit_transform(DATA)
 
 # %% SVM classification and accuracy calculation for each embedding method
 svc_dmt = SVC(max_iter=100000).fit(X_cel_dmt, y_cel_em)
 acc_dmt = accuracy_score(y_cel_em, svc_dmt.predict(X_cel_dmt))
 
-svc_umap = SVC(max_iter=100000).fit(X_cel_umap, y_cel_em)
-acc_umap = accuracy_score(y_cel_em, svc_umap.predict(X_cel_umap))
+# svc_umap = SVC(max_iter=100000).fit(X_cel_umap, y_cel_em)
+# acc_umap = accuracy_score(y_cel_em, svc_umap.predict(X_cel_umap))
 
-svc_tsne = SVC(max_iter=100000).fit(X_cel_tsne, y_cel_em)
-acc_tsne = accuracy_score(y_cel_em, svc_tsne.predict(X_cel_tsne))
+# svc_tsne = SVC(max_iter=100000).fit(X_cel_tsne, y_cel_em)
+# acc_tsne = accuracy_score(y_cel_em, svc_tsne.predict(X_cel_tsne))
 
 # Print accuracy results
 print('Accuracy with DMT:', acc_dmt)
-print('Accuracy with UMAP:', acc_umap)
-print('Accuracy with TSNE:', acc_tsne)
+# print('Accuracy with UMAP:', acc_umap)
+# print('Accuracy with TSNE:', acc_tsne)
 
 # %% Visualization of embeddings with accuracy in titles
 plt.figure(figsize=(20, 7))
@@ -126,18 +126,18 @@ ax_1.set_xticks([]); ax_1.set_yticks([])
 ax_1.spines[:].set_color('black'); ax_1.spines[:].set_linewidth(1.5)
 
 # Plot UMAP results
-ax_2 = plt.subplot(1, 3, 2, facecolor='white')
-ax_2.scatter(X_cel_umap[:, 0], X_cel_umap[:, 1], c=y_cel_em, cmap='tab10', s=0.5)
-ax_2.set_title(f'UMAP ACC: {acc_umap}')
-ax_2.set_xticks([]); ax_2.set_yticks([])
-ax_2.spines[:].set_color('black'); ax_2.spines[:].set_linewidth(1.5)
+# ax_2 = plt.subplot(1, 3, 2, facecolor='white')
+# ax_2.scatter(X_cel_umap[:, 0], X_cel_umap[:, 1], c=y_cel_em, cmap='tab10', s=0.5)
+# ax_2.set_title(f'UMAP ACC: {acc_umap}')
+# ax_2.set_xticks([]); ax_2.set_yticks([])
+# ax_2.spines[:].set_color('black'); ax_2.spines[:].set_linewidth(1.5)
 
-# Plot TSNE results
-ax_3 = plt.subplot(1, 3, 1, facecolor='white')
-ax_3.scatter(X_cel_tsne[:, 0], X_cel_tsne[:, 1], c=y_cel_em, cmap='tab10', s=0.5)
-ax_3.set_title(f'TSNE ACC: {acc_tsne}')
-ax_3.set_xticks([]); ax_3.set_yticks([])
-ax_3.spines[:].set_color('black'); ax_3.spines[:].set_linewidth(1.5)
+# # Plot TSNE results
+# ax_3 = plt.subplot(1, 3, 1, facecolor='white')
+# ax_3.scatter(X_cel_tsne[:, 0], X_cel_tsne[:, 1], c=y_cel_em, cmap='tab10', s=0.5)
+# ax_3.set_title(f'TSNE ACC: {acc_tsne}')
+# ax_3.set_xticks([]); ax_3.set_yticks([])
+# ax_3.spines[:].set_color('black'); ax_3.spines[:].set_linewidth(1.5)
 
 # Final layout adjustments and save the figure
 plt.tight_layout()
