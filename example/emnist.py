@@ -68,10 +68,6 @@ if dataname == 'eminst':
     train_data = EMNIST(root='data', train=True, download=True, transform=transform, split='byclass')
     DATA = np.stack([train_data[i][0].numpy().squeeze() for i in range(len(train_data))]).reshape((-1, 784))
     y_cel_em = np.array([train_data[i][1] for i in range(len(train_data))])
-<<<<<<< HEAD
-
-elif dataname == 'breast_cancer':
-=======
     
     if DATA.shape[0] >= 20000:
         random_seed = 0
@@ -83,7 +79,6 @@ elif dataname == 'breast_cancer':
     
     
 if dataname == 'breast_cancer':
->>>>>>> 8db3186 (auto push)
     from sklearn.datasets import load_breast_cancer
     data = load_breast_cancer()
     DATA, y_cel_em = np.array(data.data), np.array(data.target)
