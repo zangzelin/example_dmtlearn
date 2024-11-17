@@ -1,7 +1,9 @@
 # %% Import required libraries
 import pandas as pd
 from scipy.io import mmread
-import numpy as np
+import numpy as np# Set WandB environment variables
+os.environ['WANDB_API_KEY'] = 'local-04561b3685afca039aca56f554efe6a008118c01'
+os.environ['WANDB_BASE_URL'] = 'http://www.zangzelin.fun:4080'
 import matplotlib.pyplot as plt
 from dmt import DMT
 import seaborn as sns
@@ -66,8 +68,22 @@ if dataname == 'eminst':
     train_data = EMNIST(root='data', train=True, download=True, transform=transform, split='byclass')
     DATA = np.stack([train_data[i][0].numpy().squeeze() for i in range(len(train_data))]).reshape((-1, 784))
     y_cel_em = np.array([train_data[i][1] for i in range(len(train_data))])
+<<<<<<< HEAD
 
 elif dataname == 'breast_cancer':
+=======
+    
+    if DATA.shape[0] >= 20000:
+        random_seed = 0
+        np.random.seed(random_seed)
+        rand_index = np.random.choice(DATA.shape[0], 20000, replace=False)
+        DATA = DATA[rand_index]
+        y_cel_em = np.array([train_data[i][1] for i in rand_index])
+        
+    
+    
+if dataname == 'breast_cancer':
+>>>>>>> 8db3186 (auto push)
     from sklearn.datasets import load_breast_cancer
     data = load_breast_cancer()
     DATA, y_cel_em = np.array(data.data), np.array(data.target)
