@@ -63,6 +63,8 @@ if dataname == 'nhpca':
     data = np.load(data_path+'/nhpcadata.npy').astype(np.float32)
     label = np.load(data_path+'/nhpcalabel.npy').astype(np.int32)
     
+    import pdb; pdb.set_trace()
+    
     DATA = np.array(data)
     y_cel_em = np.array(label)
     
