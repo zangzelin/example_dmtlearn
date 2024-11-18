@@ -91,7 +91,7 @@ print("Data shape:", DATA.shape)
 
 # %% Dimensionality reduction using DMT, UMAP, and TSNE
 print(f"Starting DMT, time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-dmt = DMT(num_fea_aim=0.99, device_id=0, epochs=400, batch_size=200, K=3, nu=5e-3)
+dmt = DMT(num_fea_aim=0.99, device_id=0, epochs=1000, batch_size=1000, K=3, nu=5e-3)
 dmt.fit(DATA)
 X_cel_dmt = dmt.transform(DATA)
 
