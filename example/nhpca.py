@@ -110,21 +110,21 @@ plt.figure(figsize=(20, 7))
 
 # Plot DMT results
 ax_1 = plt.subplot(1, 3, 3, facecolor='white')
-ax_1.scatter(X_cel_dmt[:, 0], X_cel_dmt[:, 1], c=y_cel_em, cmap='tab10', s=8)
+ax_1.scatter(X_cel_dmt[:, 0], X_cel_dmt[:, 1], c=y_cel_em, cmap='tab10', s=0.8)
 ax_1.set_title(f'DMT ACC: {acc_dmt}')
 ax_1.set_xticks([]); ax_1.set_yticks([])
 ax_1.spines[:].set_color('black'); ax_1.spines[:].set_linewidth(1.5)
 
 # Plot UMAP results
 ax_2 = plt.subplot(1, 3, 2, facecolor='white')
-ax_2.scatter(X_cel_umap[:, 0], X_cel_umap[:, 1], c=y_cel_em, cmap='tab10', s=8)
+ax_2.scatter(X_cel_umap[:, 0], X_cel_umap[:, 1], c=y_cel_em, cmap='tab10', s=0.8)
 ax_2.set_title(f'UMAP ACC: {acc_umap}')
 ax_2.set_xticks([]); ax_2.set_yticks([])
 ax_2.spines[:].set_color('black'); ax_2.spines[:].set_linewidth(1.5)
 
 # Plot TSNE results
 ax_3 = plt.subplot(1, 3, 1, facecolor='white')
-ax_3.scatter(X_cel_tsne[:, 0], X_cel_tsne[:, 1], c=y_cel_em, cmap='tab10', s=8)
+ax_3.scatter(X_cel_tsne[:, 0], X_cel_tsne[:, 1], c=y_cel_em, cmap='tab10', s=0.8)
 ax_3.set_title(f'TSNE ACC: {acc_tsne}')
 ax_3.set_xticks([]); ax_3.set_yticks([])
 ax_3.spines[:].set_color('black'); ax_3.spines[:].set_linewidth(1.5)
