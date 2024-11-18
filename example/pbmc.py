@@ -60,7 +60,7 @@ dataname = 'pbmc'
 if dataname == 'pbmc':
 
     import scanpy as sc
-    data_path = 'zangzelin/data'
+    data_path = '/zangzelin/data'
     adata = sc.read(data_path+"/PBMC3K/pbmc3k.h5ad")
     data = np.array(adata.X).astype(np.float32)
     
