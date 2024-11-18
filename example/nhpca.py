@@ -15,6 +15,9 @@ from sklearn.manifold import TSNE
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 
+# import KNeighborsClassifier
+from sklearn.neighbors import KNeighborsClassifier
+
 # Set seaborn style for plots
 sns.set_style('dark')
 
@@ -91,14 +94,24 @@ print(f"Starting TSNE, time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%
 X_cel_tsne = TSNE(n_components=2).fit_transform(DATA)
 
 # %% SVM classification and accuracy calculation for each embedding method
-svc_dmt = SVC(max_iter=100000).fit(X_cel_dmt, y_cel_em)
-acc_dmt = accuracy_score(y_cel_em, svc_dmt.predict(X_cel_dmt))
+# svc_dmt = SVC(max_iter=100000).fit(X_cel_dmt, y_cel_em)
+# acc_dmt = accuracy_score(y_cel_em, svc_dmt.predict(X_cel_dmt))
 
-svc_umap = SVC(max_iter=100000).fit(X_cel_umap, y_cel_em)
-acc_umap = accuracy_score(y_cel_em, svc_umap.predict(X_cel_umap))
+# svc_umap = SVC(max_iter=100000).fit(X_cel_umap, y_cel_em)
+# acc_umap = accuracy_score(y_cel_em, svc_umap.predict(X_cel_umap))
 
-svc_tsne = SVC(max_iter=100000).fit(X_cel_tsne, y_cel_em)
-acc_tsne = accuracy_score(y_cel_em, svc_tsne.predict(X_cel_tsne))
+# svc_tsne = SVC(max_iter=100000).fit(X_cel_tsne, y_cel_em)
+# acc_tsne = accuracy_score(y_cel_em, svc_tsne.predict(X_cel_tsne))
+
+# KNN classification
+knn_dmt = KNeighborsClassifier(n_neighbors=5).fit(X_cel_dmt, y_cel_em)
+acc_dmt = accuracy_score(y_cel_em, knn_dmt.predict(X_cel_dmt))
+
+knn_umap = KNeighborsClassifier(n_neighbors=5).fit(X_cel_umap, y_cel_em)
+acc_umap = accuracy_score(y_cel_em, knn_umap.predict(X_cel_umap))
+
+knn_tsne = KNeighborsClassifier(n_neighbors=5).fit(X_cel_tsne, y_cel_em)
+acc_tsne = accuracy_score(y_cel_em, knn_tsne.predict(X_cel_tsne))
 
 # Print accuracy results
 print('Accuracy with DMT:', acc_dmt)
