@@ -125,4 +125,4 @@ ax_3.spines[:].set_color('black'); ax_3.spines[:].set_linewidth(1.5)
 
 # Final layout adjustments and save the figure
 plt.tight_layout()
-plt.savefig('pbmc.png', dpi=300)
+plt.savefig('nhpca.png', dpi=300)
