@@ -68,6 +68,13 @@ if dataname == 'nhpca':
     DATA = np.array(data)
     y_cel_em = np.array(label)
     
+    if DATA.shape[0] >= 60000:
+        random_seed = 0
+        np.random.seed(random_seed)
+        rand_index = np.random.choice(DATA.shape[0], 60000, replace=False)
+        DATA = DATA[rand_index]
+        y_cel_em = y_cel_em[rand_index]
+    
 # %% Display data shape
 print("Data shape:", DATA.shape)
 
